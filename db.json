@@ -1,0 +1,18 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "ename": "David",
+      "phone": "1234567812",
+      "designation": "Est et tempore numq",
+      "location": "Nulla obcaecati blan"
+    },
+    {
+      "id": 2,
+      "ename": "pefodem@mailinator.com",
+      "phone": "dacafydu@mailinator.com",
+      "designation": "Est et tempore numq",
+      "location": "Nulla obcaecati blan"
+    }
+  ]
+}
