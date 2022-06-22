@@ -12,8 +12,9 @@ const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const employees = useSelector((state) => state.employees);
 
+  console.log(employees);
   useEffect(() => {
-    EmployeeService.FetchEmployees(dispatch,handleError);
+    EmployeeService.FetchEmployees(dispatch, handleError);
     setLoading(false);
   }, []);
 

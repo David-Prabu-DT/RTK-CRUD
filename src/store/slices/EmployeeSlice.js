@@ -10,7 +10,7 @@ const EmployeeSlice = createSlice({
   initialState: initialState,
   reducers: {
     getEmployees(state, action) {
-      return action.payload.data;
+      return action.payload.data.employees;
     },
 
     addEmployee(state, action) {
