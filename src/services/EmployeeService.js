@@ -6,7 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const FetchEmployees = (dispatch, handleError) => {
   axios
     // .get(`${API_URL}/employees`)
-    .get(`${API_URL}/`)
+    .get(`${API_URL}`)
     .then((response, data) => {
       dispatch(employeeActions.getEmployees(response));
     })
