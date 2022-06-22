@@ -1,11 +1,26 @@
-import React, { useContext, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { GlobalContext } from "../context/GlobalState";
+import { employeeActions } from "../store";
+import EmployeeService from "../services/EmployeeService";
+import { useErrorHandler } from "react-error-boundary";
 
 const EmployeeList = () => {
-  const { employees, removeEmployee, getEmployees } = useContext(GlobalContext);
+  const dispatch = useDispatch();
+  const handleError = useErrorHandler();
+  const [loading, setLoading] = useState(true);
+  const employees = useSelector((state) => state.employees);
+
+  useEffect(() => {
+    EmployeeService.FetchEmployees(dispatch,handleError);
+    setLoading(false);
+  }, []);
+
+  const RemoveEmployee = (id) => {
+    dispatch(employeeActions.deleteEmployee(id));
+    EmployeeService.FetchEmployees(dispatch);
+  };
 
   return (
     <>
@@ -42,7 +57,7 @@ const EmployeeList = () => {
                             Edit
                           </Link>
                           <Button
-                            onClick={() => removeEmployee(employee.id)}
+                            onClick={() => RemoveEmployee(employee.id)}
                             className="btn btn-danger"
                           >
                             Delete
@@ -55,7 +70,9 @@ const EmployeeList = () => {
               </Table>
             </>
           ) : (
-            <h3 className="fw-light text-center">No Employee Found</h3>
+            <h3 className="fw-light text-center">
+              {loading ? "Loading..." : "No Employee Found"}
+            </h3>
           ))}
       </div>
     </>

@@ -1,16 +1,22 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { GlobalContext } from "../context/GlobalState";
+import { useDispatch, useSelector } from "react-redux";
+import { employeeActions } from "../store";
+import EmployeeService from "../services/EmployeeService";
 
 const AddEmployee = () => {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
   const [ename, setEname] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const [designation, setDesignation] = useState("");
+  const employees = useSelector((state) => state.employees);
 
-  const { addEmployee, employees } = useContext(GlobalContext);
+  useEffect(() => {
+    EmployeeService.FetchEmployees(dispatch);
+  }, []);
 
   const formSubmit = (e) => {
     e.preventDefault();
@@ -22,8 +28,9 @@ const AddEmployee = () => {
       location,
     };
 
-    addEmployee(newEmployee);
-    // navigate("/");
+    dispatch(employeeActions.addEmployee(newEmployee));
+    navigate("/");
+    EmployeeService.FetchEmployees(dispatch);
   };
 
   return (
@@ -69,7 +76,7 @@ const AddEmployee = () => {
                   placeholder="Enter Designation"
                 />
               </Form.Group>
-              
+
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Location</Form.Label>
                 <Form.Control

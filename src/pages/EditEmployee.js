@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { GlobalContext } from "../context/GlobalState";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import EmployeeService from "../services/EmployeeService";
 
 const EditEmployee = () => {
-  const { employees, editEmployee } = useContext(GlobalContext);
-  const [ename, setEname] = useState("");
-  const [phone, setPhone] = useState("");
-  const [location, setLocation] = useState("");
-  const [designation, setDesignation] = useState("");
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const employees = useSelector((state) => state.employees);
+  const [filter, setFilter] = useState(false);
   const [currentUser, setCurrentUser] = useState({
     id: null,
     ename: "",
@@ -16,18 +17,16 @@ const EditEmployee = () => {
     designation: "",
     location: "",
   });
-  const [filter, setFilter] = useState(false);
-  const { id } = useParams();
-
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const currentEmployee = employees.find(
-      (employee) => employee.id === parseInt(id)
-    );
+    EmployeeService.FetchEmployees(dispatch);
+
+    const currentEmployee =
+      Array.isArray(employees) &&
+      employees.find((employee) => employee.id === parseInt(id));
     setCurrentUser(currentEmployee);
     setFilter(true);
-  }, [id, employees]);
+  }, []);
 
   const handleChange = (key, value) => {
     setCurrentUser({ ...currentUser, [key]: value });
@@ -35,7 +34,8 @@ const EditEmployee = () => {
 
   const formSubmit = (e) => {
     e.preventDefault();
-    editEmployee(currentUser);
+
+    dispatch(EmployeeService.EditEmployee(currentUser));
     navigate("/");
   };
   return (
