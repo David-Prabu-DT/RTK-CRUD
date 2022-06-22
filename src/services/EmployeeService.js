@@ -5,8 +5,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 const FetchEmployees = (dispatch, handleError) => {
   axios
-    // .get(`${API_URL}/employees`)
-    .get(`${API_URL}`)
+    .get(`${API_URL}/employees`)
     .then((response, data) => {
       dispatch(employeeActions.getEmployees(response));
     })
@@ -15,10 +14,9 @@ const FetchEmployees = (dispatch, handleError) => {
     });
 };
 
-const AddEmployee = (content, handleError) => {
+const AddEmployee = (content) => {
   axios
-    // .post(`${API_URL}/employees`, content)
-    .post(`${API_URL}/`, content)
+    .post(`${API_URL}/employees`, content)
     .then((data) => console.log(data))
     .then((res) => {
       console.log(res);
@@ -29,11 +27,10 @@ const AddEmployee = (content, handleError) => {
     });
 };
 
-const EditEmployee = (updatedEmployee, handleError) => {
+const EditEmployee = (updatedEmployee) => {
   axios
     .patch(
       `${API_URL}/employees/${parseInt(updatedEmployee.id)}`,
-      // `${API_URL}/employees/${parseInt(updatedEmployee.id)}`,
       updatedEmployee
     )
     .then((res) => {
@@ -45,12 +42,9 @@ const EditEmployee = (updatedEmployee, handleError) => {
 };
 
 const DeleteEmployee = (id) => {
-  axios
-    .delete(`${API_URL}/${parseInt(id)}`)
-    // .delete(`${API_URL}/employees/${parseInt(id)}`)
-    .then((res) => {
-      alert("User Deleted Successfully !!");
-    });
+  axios.delete(`${API_URL}/employees/${parseInt(id)}`).then((res) => {
+    alert("User Deleted Successfully !!");
+  });
 };
 
 const EmployeeService = {

@@ -29,8 +29,8 @@ const AddEmployee = () => {
     };
 
     dispatch(employeeActions.addEmployee(newEmployee));
-    navigate("/");
     EmployeeService.FetchEmployees(dispatch);
+    navigate("/");
   };
 
   return (

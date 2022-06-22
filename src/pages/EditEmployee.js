@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import EmployeeService from "../services/EmployeeService";
+import { employeeActions } from "../store";
 
 const EditEmployee = () => {
   const { id } = useParams();
@@ -34,8 +35,8 @@ const EditEmployee = () => {
 
   const formSubmit = (e) => {
     e.preventDefault();
-
-    dispatch(EmployeeService.EditEmployee(currentUser));
+    dispatch(employeeActions.editEmployee(currentUser));
+    EmployeeService.FetchEmployees(dispatch);
     navigate("/");
   };
   return (

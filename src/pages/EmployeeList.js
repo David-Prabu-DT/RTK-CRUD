@@ -42,30 +42,31 @@ const EmployeeList = () => {
                 </thead>
                 <tbody>
                   {employees.map((employee, i) => (
-                    <>
-                      <tr className="align-middle text-center text-capitalize">
-                        <td key={employee.id}>{i + 1}</td>
-                        <td>{employee.ename}</td>
-                        <td>{employee.phone}</td>
-                        <td>{employee.designation}</td>
-                        <td>{employee.location}</td>
-                        <td className="d-flex justify-content-around">
-                          <Link
-                            className="btn btn-primary"
-                            to={`/edit/${employee.id}`}
-                            title="Edit Employee"
-                          >
-                            Edit
-                          </Link>
-                          <Button
-                            onClick={() => RemoveEmployee(employee.id)}
-                            className="btn btn-danger"
-                          >
-                            Delete
-                          </Button>
-                        </td>
-                      </tr>
-                    </>
+                    <tr
+                      key={i}
+                      className="align-middle text-center text-capitalize"
+                    >
+                      <td>{i + 1}</td>
+                      <td>{employee.ename}</td>
+                      <td>{employee.phone}</td>
+                      <td>{employee.designation}</td>
+                      <td>{employee.location}</td>
+                      <td className="d-flex justify-content-around">
+                        <Link
+                          className="btn btn-primary"
+                          to={`/edit/${employee.id}`}
+                          title="Edit Employee"
+                        >
+                          Edit
+                        </Link>
+                        <Button
+                          onClick={() => RemoveEmployee(employee.id)}
+                          className="btn btn-danger"
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
                   ))}
                 </tbody>
               </Table>

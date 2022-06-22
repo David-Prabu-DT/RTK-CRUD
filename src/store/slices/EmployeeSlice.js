@@ -1,7 +1,5 @@
-import React from "react";
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import EmployeeService from "../../services/EmployeeService";
-import { useDispatch } from "react-redux";
 
 const initialState = {};
 
@@ -10,14 +8,17 @@ const EmployeeSlice = createSlice({
   initialState: initialState,
   reducers: {
     getEmployees(state, action) {
-      return action.payload.data.employees;
+      return action.payload.data;
     },
 
     addEmployee(state, action) {
       let content = action.payload;
       EmployeeService.AddEmployee(content);
     },
-    editEmployee(state, action) {},
+    editEmployee(state, action) {
+      let content = action.payload;
+      EmployeeService.EditEmployee(content);
+    },
 
     deleteEmployee(state, action) {
       let id = action.payload;
