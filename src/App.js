@@ -6,8 +6,8 @@ import Greeting from "./components/Greeting";
 function App() {
   return (
     <div>
-      <Greeting />
-      {/* {routes} */}
+      {/* <Greeting /> */}
+      {routes}
     </div>
   );
 }
