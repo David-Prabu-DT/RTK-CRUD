@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { employeeActions } from "../store";
+import store, { employeeActions } from "../store";
 import EmployeeService from "../services/EmployeeService";
 
 const AddEmployee = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [ename, setEname] = useState("");
   const [phone, setPhone] = useState("");
@@ -30,7 +30,7 @@ const AddEmployee = () => {
 
     dispatch(employeeActions.addEmployee(newEmployee));
     EmployeeService.FetchEmployees(dispatch);
-    navigate("/");
+    navigate("/", { replace: true });
   };
 
   return (
@@ -51,6 +51,7 @@ const AddEmployee = () => {
                 <Form.Control
                   type="text"
                   value={ename}
+                  data-testid="empName"
                   maxLength={20}
                   onChange={(e) => setEname(e.target.value)}
                   placeholder="Enter Name"
@@ -60,6 +61,7 @@ const AddEmployee = () => {
                 <Form.Label>Phone Number</Form.Label>
                 <Form.Control
                   type="text"
+                  data-testid="phoneNumber"
                   value={phone}
                   maxLength={10}
                   onChange={(e) => setPhone(e.target.value)}
@@ -71,6 +73,7 @@ const AddEmployee = () => {
                 <Form.Label>Designation</Form.Label>
                 <Form.Control
                   type="text"
+                  data-testid="designation"
                   value={designation}
                   onChange={(e) => setDesignation(e.target.value)}
                   placeholder="Enter Designation"
@@ -81,6 +84,7 @@ const AddEmployee = () => {
                 <Form.Label>Location</Form.Label>
                 <Form.Control
                   type="text"
+                  data-testid="location"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="Enter Location"
@@ -88,12 +92,12 @@ const AddEmployee = () => {
               </Form.Group>
 
               <div className="d-flex justify-content-between">
-                <Button variant="primary" type="submit">
+                <Button variant="primary" data-testid="addBtn" type="submit">
                   Add Employee
                 </Button>
 
                 <Link to="/">
-                  <Button variant="warning" type="button">
+                  <Button variant="warning" data-testid="cancelBtn" type="button">
                     Cancel
                   </Button>
                 </Link>
