@@ -2,23 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { employeeActions } from "../../store";
+import { employeeActions, RootState } from "../../store";
 import EmployeeService from "../../services/EmployeeService";
 import { useErrorHandler } from "react-error-boundary";
 
 const EmployeeList = () => {
   const dispatch = useDispatch();
-  const handleError = useErrorHandler();
   const [loading, setLoading] = useState(true);
-  const employees = useSelector((state) => state.employees);
+  const employees: any = useSelector((state: RootState) => state.employees);
 
   console.log(employees);
   useEffect(() => {
-    EmployeeService.FetchEmployees(dispatch, handleError);
+    EmployeeService.FetchEmployees(dispatch);
     setLoading(false);
   }, []);
 
-  const RemoveEmployee = (id) => {
+  const RemoveEmployee = (id: number) => {
     dispatch(employeeActions.deleteEmployee(id));
     EmployeeService.FetchEmployees(dispatch);
   };
@@ -41,7 +40,7 @@ const EmployeeList = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {employees.map((employee, i) => (
+                  {employees.map((employee: any, i: number) => (
                     <tr
                       key={i}
                       className="align-middle text-center text-capitalize"

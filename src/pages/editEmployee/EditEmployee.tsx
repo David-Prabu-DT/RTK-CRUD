@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import EmployeeService from "../../services/EmployeeService";
-import { employeeActions } from "../../store";
+import { employeeActions, RootState } from "../../store";
 
 const EditEmployee = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const employees = useSelector((state) => state.employees);
+  const employees = useSelector((state: RootState) => state.employees);
   const [filter, setFilter] = useState(false);
   const [currentUser, setCurrentUser] = useState({
     id: null,
@@ -24,16 +24,16 @@ const EditEmployee = () => {
 
     const currentEmployee =
       Array.isArray(employees) &&
-      employees.find((employee) => employee.id === parseInt(id));
+      employees.find((employee) => employee.id === id);
     setCurrentUser(currentEmployee);
     setFilter(true);
   }, []);
 
-  const handleChange = (key, value) => {
+  const handleChange = (key: string, value: string | number) => {
     setCurrentUser({ ...currentUser, [key]: value });
   };
 
-  const formSubmit = (e) => {
+  const formSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(employeeActions.editEmployee(currentUser));
     EmployeeService.FetchEmployees(dispatch);

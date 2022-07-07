@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { employeeActions } from "../../store";
+import { useDispatch } from "react-redux";
+import { employeeActions, useAppDispatch } from "../../store";
+
 import EmployeeService from "../../services/EmployeeService";
 
-const AddEmployee: React.FC<{}> = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+const AddEmployee = () => {
   const [ename, setEname] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const [designation, setDesignation] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     EmployeeService.FetchEmployees(dispatch);
@@ -19,7 +20,7 @@ const AddEmployee: React.FC<{}> = () => {
 
   const formSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newEmployee = {
+    const newEmployee: object = {
       ename,
       phone,
       designation,

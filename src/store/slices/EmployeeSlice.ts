@@ -1,26 +1,30 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import EmployeeService from "../../services/EmployeeService";
+import { empModel } from "../../models/redux-models";
 
 const initialState = {};
+
+interface empId {
+  id: number;
+}
 
 const EmployeeSlice = createSlice({
   name: "employees",
   initialState: initialState,
   reducers: {
-    getEmployees(action: any) {
+    getEmployees(_state, action: any) {
       return action.payload.data;
     },
-
-    addEmployee(action: any) {
+    addEmployee(_state, action: PayloadAction<empModel>) {
       let content = action.payload;
       EmployeeService.AddEmployee(content);
     },
-    editEmployee(action: any) {
+    editEmployee(_state, action: PayloadAction<empModel>) {
       let content = action.payload;
       EmployeeService.EditEmployee(content);
     },
 
-    deleteEmployee(action: any) {
+    deleteEmployee(_state, action: any) {
       let id = action.payload;
       EmployeeService.DeleteEmployee(id);
     },

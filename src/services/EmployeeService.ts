@@ -1,20 +1,21 @@
-import { Form } from "react-bootstrap";
+import { useErrorHandler } from 'react-error-boundary';
+import { AppDispatch } from "./../store/index";
 import axios from "axios";
 import { employeeActions } from "../store";
 const API_URL = process.env.REACT_APP_API_URL;
 
-const FetchEmployees = <T>(dispatch: T, handleError: T): void => {
+const handleError = useErrorHandler();
+
+const FetchEmployees = <T>(dispatch: AppDispatch) => {
   axios
     .get(`${API_URL}/employees`)
-    .then((_res: any, data: any): void => {
+    .then((_res: object) => {
       dispatch(employeeActions.getEmployees(_res));
     })
-    
-    .catch((err) => {
-      handleError(err);
+    .catch((_err) => {
+      handleError(_err);
     });
 };
-
 
 const AddEmployee = <T>(content: T): void => {
   axios
@@ -29,7 +30,7 @@ const AddEmployee = <T>(content: T): void => {
     });
 };
 
-const EditEmployee = <T>(updatedEmployee: T): void => {
+const EditEmployee = (updatedEmployee: any) => {
   axios
     .patch(`${API_URL}/employees/${updatedEmployee.id}`, updatedEmployee)
     .then((_res) => {
@@ -40,7 +41,7 @@ const EditEmployee = <T>(updatedEmployee: T): void => {
     });
 };
 
-const DeleteEmployee = (id: number): void => {
+const DeleteEmployee = <T>(id: T) => {
   axios.delete(`${API_URL}/employees/${id}`).then((_res) => {
     alert("User Deleted Successfully !!");
   });
