@@ -7,12 +7,13 @@ const Heading = () => {
     <div>
       <div className="d-flex justify-content-between">
         <div>
-          <h4 className="fw-light">Employee listing</h4>
+          <h4 className="">Employee Listing</h4>
         </div>
         <div>
           <Link to={"/add"}>
-            <Button className="btn btn-success">Add Employee</Button>
+            <Button className="btn btn-success"> Add Employee</Button>
           </Link>
+          <Button className="btn btn-warning m-1">Logout</Button>
         </div>
       </div>
     </div>

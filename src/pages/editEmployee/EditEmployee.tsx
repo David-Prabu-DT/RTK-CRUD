@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { useErrorHandler } from "react-error-boundary";
 import EmployeeService from "../../services/EmployeeService";
 import { employeeActions, RootState } from "../../store";
 
@@ -9,7 +10,9 @@ const EditEmployee = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const handleError = useErrorHandler();
   const employees = useSelector((state: RootState) => state.employees);
+  
   const [filter, setFilter] = useState(false);
   const [currentUser, setCurrentUser] = useState({
     id: null,
@@ -20,7 +23,7 @@ const EditEmployee = () => {
   });
 
   useEffect(() => {
-    EmployeeService.FetchEmployees(dispatch);
+    EmployeeService.FetchEmployees(dispatch, handleError);
 
     const currentEmployee =
       Array.isArray(employees) &&
@@ -36,7 +39,7 @@ const EditEmployee = () => {
   const formSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(employeeActions.editEmployee(currentUser));
-    EmployeeService.FetchEmployees(dispatch);
+    EmployeeService.FetchEmployees(dispatch, handleError);
     navigate("/");
   };
   return (

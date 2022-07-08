@@ -2,17 +2,13 @@ import { configureStore, Middleware } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import EmployeeSlice from "./slices/EmployeeSlice";
 
-interface middle {
-  serializableCheck?: boolean;
-  thunk?: object;
-}
 
 const store = configureStore({
   reducer: { employees: EmployeeSlice.reducer },
-  middleware: (getDefaultMiddleware: Middleware<middle>) =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-      thunk: {},
+      thunk: <any>{},
     }),
 });
 

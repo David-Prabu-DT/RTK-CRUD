@@ -1,12 +1,9 @@
-import { useErrorHandler } from 'react-error-boundary';
 import { AppDispatch } from "./../store/index";
 import axios from "axios";
 import { employeeActions } from "../store";
 const API_URL = process.env.REACT_APP_API_URL;
 
-const handleError = useErrorHandler();
-
-const FetchEmployees = <T>(dispatch: AppDispatch) => {
+const FetchEmployees = <T>(dispatch: AppDispatch, handleError: any) => {
   axios
     .get(`${API_URL}/employees`)
     .then((_res: object) => {

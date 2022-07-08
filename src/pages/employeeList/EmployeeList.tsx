@@ -8,18 +8,18 @@ import { useErrorHandler } from "react-error-boundary";
 
 const EmployeeList = () => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  const handleError = useErrorHandler();
   const employees: any = useSelector((state: RootState) => state.employees);
+  const [loading, setLoading] = useState(true);
 
-  console.log(employees);
   useEffect(() => {
-    EmployeeService.FetchEmployees(dispatch);
+    EmployeeService.FetchEmployees(dispatch, handleError);
     setLoading(false);
   }, []);
 
   const RemoveEmployee = (id: number) => {
     dispatch(employeeActions.deleteEmployee(id));
-    EmployeeService.FetchEmployees(dispatch);
+    EmployeeService.FetchEmployees(dispatch, handleError);
   };
 
   return (

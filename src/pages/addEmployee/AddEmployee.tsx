@@ -2,20 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { employeeActions, useAppDispatch } from "../../store";
-
+import { useErrorHandler } from "react-error-boundary";
+import { employeeActions } from "../../store";
 import EmployeeService from "../../services/EmployeeService";
 
 const AddEmployee = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleError = useErrorHandler();
+
   const [ename, setEname] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const [designation, setDesignation] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    EmployeeService.FetchEmployees(dispatch);
+    EmployeeService.FetchEmployees(dispatch, handleError);
   }, []);
 
   const formSubmit = (e: React.FormEvent) => {
@@ -28,7 +30,7 @@ const AddEmployee = () => {
     };
 
     dispatch(employeeActions.addEmployee(newEmployee));
-    EmployeeService.FetchEmployees(dispatch);
+    EmployeeService.FetchEmployees(dispatch, handleError);
     navigate("/", { replace: true });
   };
 

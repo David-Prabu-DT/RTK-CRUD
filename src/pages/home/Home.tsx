@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <div>
       <Container className="mt-5">
-        <h3 className="text-center">Employee CRUD App</h3>
+        <h2 className="text-center">Employee CRUD App</h2>
         <Heading />
         <ErrorBoundary
           FallbackComponent={ErrorFallback}
