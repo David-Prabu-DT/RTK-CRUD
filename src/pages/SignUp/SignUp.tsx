@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { AuthService } from "../../services/auth.service";
 
 const SignUp = () => {
+  const [userData, setUserData] = useState({
+    username: "",
+    phonenumber: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.FormEvent) => {
+    const { name, value }: any = e.target;
+    setUserData({ ...userData, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    let formData = new FormData();
+
+    formData.append("email", userData.email);
+    formData.append("password", userData.password);
+
+    AuthService.SignUp(formData);
+  };
+
   return (
     <>
       <Container>
@@ -22,7 +44,8 @@ const SignUp = () => {
                     <Form.Control
                       type="text"
                       name="username"
-                      value={""}
+                      value={userData.username}
+                      onChange={(e) => handleChange(e)}
                       placeholder="Enter Name"
                     />
                     <span className="text-danger"></span>
@@ -33,7 +56,8 @@ const SignUp = () => {
                     <Form.Control
                       type="text"
                       name="phonenumber"
-                      value={""}
+                      value={userData.phonenumber}
+                      onChange={(e) => handleChange(e)}
                       maxLength={10}
                       placeholder="Enter Phone"
                     />
@@ -45,6 +69,8 @@ const SignUp = () => {
                     <Form.Control
                       type="email"
                       name="email"
+                      value={userData.email}
+                      onChange={(e) => handleChange(e)}
                       placeholder="Enter email"
                     />
                     <span className="text-danger"></span>
@@ -55,13 +81,20 @@ const SignUp = () => {
                     <Form.Control
                       type="password"
                       name="password"
+                      value={userData.password}
+                      onChange={(e) => handleChange(e)}
                       placeholder="Password"
                     />
                     <span className="text-danger">{}</span>
                   </Form.Group>
 
                   <div className="d-grid gap-2">
-                    <Button variant="primary" size="lg" type="button">
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      type="button"
+                      onClick={handleSubmit}
+                    >
                       Sign Up
                     </Button>
                   </div>

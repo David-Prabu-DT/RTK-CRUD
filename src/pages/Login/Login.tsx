@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { AuthService } from "../../services/auth.service";
 
 const Login = () => {
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.FormEvent) => {
+    const { name, value }: any = e.target;
+    setUserData({ ...userData, [name]: value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    AuthService.LogIn(userData);
+  };
   return (
     <>
       <Container>
@@ -16,12 +31,14 @@ const Login = () => {
                 Login
               </Card.Header>
               <Card.Body>
-                <Form>
+                <Form onSubmit={(e) => handleSubmit(e)}>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
                       type="email"
                       name="email"
+                      value={userData.email}
+                      onChange={(e) => handleChange(e)}
                       placeholder="Enter email"
                     />
                     <span className="text-danger"></span>
@@ -32,6 +49,8 @@ const Login = () => {
                     <Form.Control
                       type="password"
                       name="password"
+                      value={userData.password}
+                      onChange={(e) => handleChange(e)}
                       placeholder="Password"
                     />
                     <span className="text-danger"></span>
