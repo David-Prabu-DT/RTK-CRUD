@@ -1,7 +1,4 @@
-const e = require("express");
-const { request } = require("http");
 const JWT = require("jsonwebtoken");
-const { response } = require("..");
 const { users } = require("../usersData");
 
 exports.SignUp = (req, res) => {
@@ -10,9 +7,7 @@ exports.SignUp = (req, res) => {
   let userData = users.find((data) => data.email === email);
 
   userData &&
-    res
-      .status(400)
-      .json({ status: "Failed", Errors: [{ message: "User Already Exists" }] });
+    res.status(400).json({ status: "Failed", Message: "User Already Exists" });
 
   users.push({ email, password });
 
@@ -20,12 +15,10 @@ exports.SignUp = (req, res) => {
     expiresIn: "30s",
   });
 
-  res.status(200).json({
+  res.status(201).json({
     status: "Success",
     data: token,
   });
-
-  console.log(users);
 };
 
 exports.Login = (req, res) => {
@@ -35,7 +28,7 @@ exports.Login = (req, res) => {
   !userData &&
     res.status(401).json({
       status: "Failed",
-      Errors: [{ message: "No Users Found" }],
+      Message: "No Users Found",
     });
 
   const token = JWT.sign({ email }, "q1w2e3r4t5y6u7i8o9p0", {
@@ -46,7 +39,7 @@ exports.Login = (req, res) => {
     expiresIn: "1m",
   });
 
-  res.status(200).json({ status: "Success", data: { token, refreshToken } });
+  res.status(200).json({ status: "Success", token, refreshToken });
 };
 
 exports.RefreshTokenHandler = (req, res) => {
