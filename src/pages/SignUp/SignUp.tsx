@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthService } from "../../services/auth.service";
 
 const SignUp = () => {
@@ -11,18 +11,20 @@ const SignUp = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e: React.FormEvent) => {
     const { name, value }: any = e.target;
     setUserData({ ...userData, [name]: value });
   };
 
   const handleSubmit = () => {
-    let formData = new FormData();
+    let data = {
+      email: userData.email,
+      password: userData.password,
+    };
 
-    formData.append("email", userData.email);
-    formData.append("password", userData.password);
-
-    AuthService.SignUp(formData);
+    AuthService.SignUp(data, navigate);
   };
 
   return (

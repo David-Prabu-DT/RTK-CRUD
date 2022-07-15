@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthService } from "../../services/auth.service";
 
 const Login = () => {
@@ -9,14 +9,20 @@ const Login = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e: React.FormEvent) => {
     const { name, value }: any = e.target;
     setUserData({ ...userData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    AuthService.LogIn(userData);
+  const handleSubmit = () => {
+    let data = {
+      email: userData.email,
+      password: userData.password,
+    };
+
+    AuthService.LogIn(data, navigate);
   };
   return (
     <>
@@ -31,7 +37,7 @@ const Login = () => {
                 Login
               </Card.Header>
               <Card.Body>
-                <Form onSubmit={(e) => handleSubmit(e)}>
+                <Form>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
@@ -57,7 +63,12 @@ const Login = () => {
                   </Form.Group>
 
                   <div className="d-grid gap-2">
-                    <Button variant="primary" size="lg" type="button">
+                    <Button
+                      variant="primary"
+                      onClick={handleSubmit}
+                      size="lg"
+                      type="button"
+                    >
                       Login
                     </Button>
                   </div>
