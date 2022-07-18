@@ -1,31 +1,55 @@
+import React from "react";
 import {
-  ProSidebar,
-  SidebarHeader,
-  SidebarFooter,
-  SidebarContent,
-} from "react-pro-sidebar";
-import "react-pro-sidebar/dist/css/styles.css";
+  CDBSidebar,
+  CDBSidebarHeader,
+  CDBSidebarContent,
+  CDBSidebarMenu,
+  CDBSidebarMenuItem,
+} from "cdbreact";
+import { Link } from "react-router-dom";
+import { ArrowRightCircle } from "react-bootstrap-icons";
+
 const NavSidebar = () => {
   return (
-    <>
-      <ProSidebar>
-        <SidebarHeader>
-          {/**
-           *  You can add a header for the sidebar ex: logo
-           */}
-        </SidebarHeader>
-        <SidebarContent>
-          {/**
-           *  You can add the content of the sidebar ex: menu, profile details, ...
-           */}
-        </SidebarContent>
-        <SidebarFooter>
-          {/**
-           *  You can add a footer for the sidebar ex: copyright
-           */}
-        </SidebarFooter>
-      </ProSidebar>
-    </>
+    <div
+      style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
+    >
+      <CDBSidebar>
+        <CDBSidebarHeader>
+          <Link to={"/dashboard"}>SideBar </Link>
+        </CDBSidebarHeader>
+
+        <CDBSidebarContent>
+          <CDBSidebarMenu>
+            <CDBSidebarMenuItem>
+              <Link to={"/dashboard/home"}>
+                <ArrowRightCircle /> Home
+              </Link>
+            </CDBSidebarMenuItem>
+            <CDBSidebarMenuItem>
+              <Link to={"/dashboard/about"}>
+                <ArrowRightCircle /> About
+              </Link>
+            </CDBSidebarMenuItem>
+            <CDBSidebarMenuItem>
+              <Link to={"/dashboard/services"}>
+                <ArrowRightCircle /> Services
+              </Link>
+            </CDBSidebarMenuItem>
+            <CDBSidebarMenuItem>
+              <Link to={"/dashboard/products"}>
+                <ArrowRightCircle /> Products
+              </Link>
+            </CDBSidebarMenuItem>
+            <CDBSidebarMenuItem>
+              <Link to={"/dashboard/contacts"}>
+                <ArrowRightCircle /> Contacts
+              </Link>
+            </CDBSidebarMenuItem>
+          </CDBSidebarMenu>
+        </CDBSidebarContent>
+      </CDBSidebar>
+    </div>
   );
 };
 

@@ -4,7 +4,7 @@ import { employeeActions } from "../store";
 const API_URL = process.env.REACT_APP_API_URL;
 
 const FetchEmployees = <T>(dispatch: AppDispatch, handleError: any) => {
-  axios
+    axios
     .get(`${API_URL}/employees`)
     .then((_res: object) => {
       dispatch(employeeActions.getEmployees(_res));

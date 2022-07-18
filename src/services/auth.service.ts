@@ -33,3 +33,4 @@ const LogIn = async <T>(data: T, navigate: any) => {
 };
 
 export const AuthService = { SignUp, LogIn };
+ 
