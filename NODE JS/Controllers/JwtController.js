@@ -43,7 +43,7 @@ exports.Login = (req, res) => {
 };
 
 exports.RefreshTokenHandler = (req, res) => {
-  let refreshToken = req.body["x-access-token"];
+  let refreshToken = req.headers["x-access-token"];
 
   let decode = JWT.decode(refreshToken);
 
