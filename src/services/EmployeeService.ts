@@ -1,11 +1,14 @@
+import { TokenService } from "./token.service";
 import { AppDispatch } from "./../store/index";
 import axios from "axios";
 import { employeeActions } from "../store";
-const API_URL = process.env.REACT_APP_API_URL;
+import instance from "./api";
+const API_URL = `${process.env.REACT_APP_API_URL}/auth`;
 
 const FetchEmployees = <T>(dispatch: AppDispatch, handleError: any) => {
-    axios
-    .get(`${API_URL}/employees`)
+  const token: any = TokenService.getAccessToken();
+  instance
+    .get(`${API_URL}/employees`, { headers: { "x-access-token": token } })
     .then((_res: object) => {
       dispatch(employeeActions.getEmployees(_res));
     })

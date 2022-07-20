@@ -11,11 +11,13 @@ const setRefreshToken = <T>(_token: T) => {
 };
 
 const getAccessToken = () => {
-  return localStorage.getItem("accessToken");
+  return JSON.parse(localStorage.getItem("accessToken") || "{}");
 };
 
 const getRefreshToken = () => {
-  return localStorage.getItem("RefreshToken");
+  console.log(localStorage.getItem("RefreshToken"));
+
+  return JSON.parse(localStorage.getItem("RefreshToken") || "{}");
 };
 
 const UpdateAccessToken = <T>(_token: T) => {

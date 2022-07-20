@@ -23,13 +23,20 @@ instance.interceptors.response.use(
   },
   async (err: any) => {
     console.log(err);
+    TokenService.getRefreshToken();
 
-    if (err.response.this.status === 401) {
+
+    const originalConfig = err.config;
+    if (err.response.status === 401) {
+      TokenService.getRefreshToken();
       if (
         err.response.data.message === "Unauthorized! Access Token was expired!"
       ) {
+        TokenService.getRefreshToken();
+
         try {
           let refreshToken = TokenService.getRefreshToken();
+          console.log(refreshToken);
 
           const res = await instance.post("/refresh", {
             "x-access-token": refreshToken,
@@ -37,6 +44,11 @@ instance.interceptors.response.use(
           });
 
           console.log(res);
+
+          TokenService.UpdateAccessToken(res?.data?.data?.token);
+          instance.defaults.headers.common["x-access-token"] =
+            res?.data?.data?.token;
+          return instance(originalConfig);
         } catch (_error) {
           return Promise.reject(_error);
         }

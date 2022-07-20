@@ -3,6 +3,8 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Security from "../Security";
 const Settings = (_props) => {
   let path = useLocation();
+  console.log(path);
+  
   return (
     <div>
       <Routes>

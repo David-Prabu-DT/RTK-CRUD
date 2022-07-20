@@ -12,7 +12,7 @@ export const sideMenu = [
   {
     label: "Home",
     Icon: HomeIcon,
-    to: "/",
+    to: "/panel",
   },
   {
     label: "Profile",

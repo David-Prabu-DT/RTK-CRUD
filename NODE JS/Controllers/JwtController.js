@@ -60,3 +60,30 @@ exports.RefreshTokenHandler = (req, res) => {
     });
   }
 };
+
+exports.checkAuth = (req, res, next) => {
+  console.log(req.headers);
+  const { TokenExpiredError } = JWT;
+  const catchError = (err, res) => {
+    if (err instanceof TokenExpiredError) {
+      return res
+        .status(401)
+        .send({ message: "Unauthorized! Access Token was expired!" });
+    }
+    return res.sendStatus(401).send({ message: "Unauthorized!" });
+  };
+  console.log("hai inside");
+  const token = req.headers["x-access-token"];
+  console.log("tokens", token);
+  if (!token) {
+    res.status(400).json({
+      errors: [{ msg: "No Token Found" }],
+    });
+  }
+  JWT.verify(token, "q1w2e3r4t5y6u7i8o9p0", (err, decoded) => {
+    if (err) {
+      return catchError(err, res);
+    }
+    next();
+  });
+};

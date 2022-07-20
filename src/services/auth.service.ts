@@ -3,7 +3,7 @@ import axios from "axios";
 
 const SignUp = async <T>(data: T, navigate: any) => {
   await axios
-    .post(`${process.env.REACT_APP_AUTH_API_URL}/auth/signup`, data)
+    .post(`${process.env.REACT_APP_API_URL}/auth/signup`, data)
     .then((_res) => {
       _res.data && TokenService.setSignupUser(_res.data);
       navigate("/login");
@@ -17,7 +17,7 @@ const SignUp = async <T>(data: T, navigate: any) => {
 
 const LogIn = async <T>(data: T, navigate: any) => {
   await axios
-    .post(`${process.env.REACT_APP_AUTH_API_URL}/auth/login`, data)
+    .post(`${process.env.REACT_APP_API_URL}/auth/login`, data)
     .then((_res) => {
       if (_res.data.token && _res.data.refreshToken) {
         TokenService.setAccessToken(_res.data.token);
@@ -33,4 +33,3 @@ const LogIn = async <T>(data: T, navigate: any) => {
 };
 
 export const AuthService = { SignUp, LogIn };
- 
