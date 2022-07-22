@@ -2,7 +2,7 @@ import { TokenService } from "./token.service";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: `/auth`,
+  baseURL: `${process.env.REACT_APP_API_URL}/auth`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -20,13 +20,14 @@ instance.interceptors.request.use((request: any) => {
 instance.interceptors.response.use(
   (response: any) => {
     console.log(response);
+    return response;
   },
   async (err: any) => {
-    console.log(err);
     TokenService.getRefreshToken();
 
-
     const originalConfig = err.config;
+    // console.log(err.response.data.message);
+
     if (err.response.status === 401) {
       TokenService.getRefreshToken();
       if (
@@ -36,7 +37,6 @@ instance.interceptors.response.use(
 
         try {
           let refreshToken = TokenService.getRefreshToken();
-          console.log(refreshToken);
 
           const res = await instance.post("/refresh", {
             "x-access-token": refreshToken,

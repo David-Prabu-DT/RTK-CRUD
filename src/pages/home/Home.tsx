@@ -5,9 +5,9 @@ import Heading from "../../components/Heading";
 import EmployeeList from "../employeeList/EmployeeList";
 
 function ErrorFallback({ error, resetErrorBoundary }: any) {
-  console.log("Fall back UI Called");
+  // console.log("Fall back UI Called");
   return (
-    <div role="alert"> 
+    <div role="alert">
       <p>Something went wrong:</p>
       <pre>{error.message}</pre>
       <button onClick={resetErrorBoundary}>Try again</button>

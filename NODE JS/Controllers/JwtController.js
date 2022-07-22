@@ -12,7 +12,7 @@ exports.SignUp = (req, res) => {
   users.push({ email, password });
 
   const token = JWT.sign({ email }, "q1w2e3r4t5y6u7i8o9p0", {
-    expiresIn: "30s",
+    expiresIn: "1m",
   });
 
   res.status(201).json({
@@ -32,11 +32,11 @@ exports.Login = (req, res) => {
     });
 
   const token = JWT.sign({ email }, "q1w2e3r4t5y6u7i8o9p0", {
-    expiresIn: "30s",
+    expiresIn: "1m",
   });
 
   const refreshToken = JWT.sign({ email }, "q1w2e3r4t5y6u7i8o9p0", {
-    expiresIn: "1m",
+    expiresIn: "10m",
   });
 
   res.status(200).json({ status: "Success", token, refreshToken });
@@ -51,7 +51,7 @@ exports.RefreshTokenHandler = (req, res) => {
 
   if (currentUserMail) {
     const token = JWT.sign({ currentUserMail }, "q1w2e3r4t5y6u7i8o9p0", {
-      expiresIn: "1m",
+      expiresIn: "10m",
     });
 
     return res.status(200).json({

@@ -10,7 +10,7 @@ import {
 
 export const sideMenu = [
   {
-    label: "Home",
+    label: "Crud Panel",
     Icon: HomeIcon,
     to: "/panel",
   },

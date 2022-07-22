@@ -1,10 +1,13 @@
 {
-   "jest.jestCommandLine": "test",
-   "grammarly.files.include": [
-      "**/readme.md",
-      "**/README.md",
-      "**/*.txt",
-      "{   \"grammarly.files.include\": [\"**/README.md\", \"**/readme.md\", \"**/*.txt\"] }"
-   ],
-   "typescript.tsdk": "node_modules/typescript/lib"
+  "jest.jestCommandLine": "test",
+  "grammarly.files.include": [
+    "**/readme.md",
+    "**/README.md",
+    "**/*.txt",
+    "{   \"grammarly.files.include\": [\"**/README.md\", \"**/readme.md\", \"**/*.txt\"] }"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.fontLigatures": false,
+  "workbench.activityBar.visible": true,
+  "jshint.options": { "esversion": 6 }
 }

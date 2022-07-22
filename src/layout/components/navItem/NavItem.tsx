@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import style from "./navItem.module.css";
 import NavItemHeader from "./NavItemHeader";
 
-console.log({ style });
 const NavItem = (props) => {
   const { label, Icon, to, children } = props.item;
 

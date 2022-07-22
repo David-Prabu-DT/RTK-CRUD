@@ -10,22 +10,32 @@ import Settings from "../views/settings/Settings";
 
 const Home = lazy(() => import("../pages/home/Home"));
 
+
 const routes = (
   <>
-    <Routes>
-      <Route path="/" element={<SignUp />} />
-      <Route path="/login" element={<Login />} />
-      <Route
-        path="/employees"
-        element={
-          <Suspense fallback={<h4 className="text-center">Still Loading…</h4>}>
-            <Home />
-          </Suspense>
-        }
-      />
-      <Route path="/add" element={<AddEmployee />} />
-      <Route path="/edit/:id" element={<EditEmployee />} />
-    </Routes>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+
+        <Route
+          path="/employees"
+          element={
+            <Suspense
+              fallback={<h4 className="text-center">Still Loading…</h4>}
+            >
+              <Home />
+            </Suspense>
+          }
+        />
+        <Route path="/add" element={<AddEmployee />} />
+        <Route path="/edit/:id" element={<EditEmployee />} />
+
+        <Route path="/panel" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
+      </Routes>
+    </Layout>
   </>
 );
 

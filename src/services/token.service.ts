@@ -11,6 +11,7 @@ const setRefreshToken = <T>(_token: T) => {
 };
 
 const getAccessToken = () => {
+  // console.log(JSON.parse(localStorage.getItem("accessToken") || "{}"));
   return JSON.parse(localStorage.getItem("accessToken") || "{}");
 };
 

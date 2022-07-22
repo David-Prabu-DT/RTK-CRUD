@@ -10,6 +10,8 @@ const FetchEmployees = <T>(dispatch: AppDispatch, handleError: any) => {
   instance
     .get(`${API_URL}/employees`, { headers: { "x-access-token": token } })
     .then((_res: object) => {
+      console.log(_res);
+
       dispatch(employeeActions.getEmployees(_res));
     })
     .catch((_err) => {
