@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import style from "./navItem.module.css";
 import NavItemHeader from "./NavItemHeader";
 
@@ -11,10 +11,10 @@ const NavItem = (props) => {
   }
 
   return (
-    <NavLink to={to} className={style.navItem}>
+    <Link to={to} className={style.navItem}>
       <Icon className={style.navIcon} />
       <span className={style.navLabel}>{label}</span>
-    </NavLink>
+    </Link>
   );
 };
 

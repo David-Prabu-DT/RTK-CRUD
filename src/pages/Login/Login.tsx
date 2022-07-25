@@ -23,6 +23,7 @@ const Login = () => {
     };
 
     AuthService.LogIn(data, navigate);
+    // location.reload();
   };
   return (
     <>

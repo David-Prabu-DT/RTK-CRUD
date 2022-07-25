@@ -10,7 +10,6 @@ import Settings from "../views/settings/Settings";
 
 const Home = lazy(() => import("../pages/home/Home"));
 
-
 const routes = (
   <>
     <Layout>
@@ -20,6 +19,7 @@ const routes = (
 
         <Route
           path="/employees"
+         
           element={
             <Suspense
               fallback={<h4 className="text-center">Still Loading…</h4>}
