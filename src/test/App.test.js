@@ -1,27 +1,28 @@
 import React from "react";
-import ReactDom from "react-dom";
-import { act } from "react-dom/test-utils";
+import { configure, shallow } from "enzyme";
+import chai, { expect } from "chai";
+import chaiEnzyme from "chai-enzyme";
+import Adapter from "enzyme-adapter-react-16";
 import App from "../App";
-let expect = require("chai").expect;
+import { Provider } from "react-redux";
+import store from "../store";
+import { BrowserRouter } from "react-router-dom";
 
-const ExampleComponentFactory = React.createFactory(App);
-
-let rootContainer;
-
-beforeEach(() => {
-  rootContainer = document.createElement("div");
-  document.body.appendChild(rootContainer);
+configure({
+  adapter: new Adapter(),
 });
 
-afterEach(() => {
-  document.body.removeChild(rootContainer);
-  rootContainer = null;
-});
-
-describe("App Component Testing", () => {
-  it("Renders", () => {
-    act(() => {
-      ReactDOM.render(App, rootContainer);
-    });
+describe("Testing <App/> Component", () => {
+  it("App renders a message", () => {
+    const wrapper = shallow(<App />);
+    const message = (
+      <div>
+        <Provider store={store}>
+          <BrowserRouter>{routes}</BrowserRouter>
+        </Provider>
+      </div>
+    );
+    expect(wrapper).to.contain(message);
   });
+  chai.use(chaiEnzyme());
 });

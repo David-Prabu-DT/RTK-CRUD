@@ -7,7 +7,7 @@ let chaiAsPromise = require("chai-as-promised");
 chai.use(chaiAsPromise);
 const nock = require("nock");
 
-describe("Test Suit", () => {
+describe.skip("Test Suit", () => {
   // hooks
   before(() => {
     console.log("======== Before the test suit");
@@ -80,7 +80,7 @@ describe.skip("Promise Test Suit", () => {
 });
 
 // xhr - nock
-describe("XHR test suit", () => {
+describe.skip("XHR test suit", () => {
   it("MOck and stub xhr call", () => {
     //
   });
