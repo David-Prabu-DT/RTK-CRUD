@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Table } from "react-bootstrap";
+import { Button, Pagination, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { employeeActions, RootState } from "../../store";
 import EmployeeService from "../../services/EmployeeService";
 import { useErrorHandler } from "react-error-boundary";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+
 
 const EmployeeList = () => {
   const dispatch = useDispatch();
@@ -21,6 +25,15 @@ const EmployeeList = () => {
     dispatch(employeeActions.deleteEmployee(id));
     EmployeeService.FetchEmployees(dispatch, handleError);
   };
+
+  const columns:object = [
+    { dataField: 'id', text: 'S.No' },
+    { dataField: 'name', text: 'Name' },
+    { dataField: 'phone', text: 'Phone' },
+    { dataField: 'designation', text: 'Designation' },
+    { dataField: 'location', text: 'Location' },
+    { dataField: 'animal', text: 'Action' },
+  ];
 
   return (
     <>
@@ -75,6 +88,8 @@ const EmployeeList = () => {
               {loading ? "Loading..." : "No Employee Found"}
             </h3>
           ))}
+
+       
       </div>
     </>
   );
