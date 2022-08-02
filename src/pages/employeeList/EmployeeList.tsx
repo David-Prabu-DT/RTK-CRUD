@@ -1,20 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Pagination, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { employeeActions, RootState } from "../../store";
 import EmployeeService from "../../services/EmployeeService";
 import { useErrorHandler } from "react-error-boundary";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
-
+import Pagination from "../../components/Pagination/Pagination";
 
 const EmployeeList = () => {
   const dispatch = useDispatch();
   const handleError = useErrorHandler();
   const employees: any = useSelector((state: RootState) => state.employees);
   const [loading, setLoading] = useState(true);
+
+  console.log(Object.keys(employees).length);
+
+  // Pagination Footer
+  let PageSize: number = 8;
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const firstPageIndex = (currentPage - 1) * PageSize;
+  const lastPageIndex = firstPageIndex + PageSize;
+  const currentTableData =
+    Object.keys(employees).length !== 0 &&
+    employees.slice(firstPageIndex, lastPageIndex);
 
   useEffect(() => {
     EmployeeService.FetchEmployees(dispatch, handleError);
@@ -26,20 +36,11 @@ const EmployeeList = () => {
     EmployeeService.FetchEmployees(dispatch, handleError);
   };
 
-  const columns:object = [
-    { dataField: 'id', text: 'S.No' },
-    { dataField: 'name', text: 'Name' },
-    { dataField: 'phone', text: 'Phone' },
-    { dataField: 'designation', text: 'Designation' },
-    { dataField: 'location', text: 'Location' },
-    { dataField: 'animal', text: 'Action' },
-  ];
-
   return (
     <>
       <div className="mt-3">
-        {employees &&
-          (employees.length > 0 ? (
+        {currentTableData &&
+          (currentTableData.length > 0 ? (
             <>
               <Table striped bordered hover className="mt-3 bg-light rounded">
                 <thead>
@@ -82,14 +83,18 @@ const EmployeeList = () => {
                   ))}
                 </tbody>
               </Table>
+              <Pagination
+                currentPage={currentPage}
+                totalCount={employees.length}
+                pageSize={PageSize}
+                onPageChange={(page) => setCurrentPage(page)}
+              />
             </>
           ) : (
             <h3 className="fw-light text-center">
               {loading ? "Loading..." : "No Employee Found"}
             </h3>
           ))}
-
-       
       </div>
     </>
   );
