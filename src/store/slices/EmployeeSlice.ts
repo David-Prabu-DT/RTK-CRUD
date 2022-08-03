@@ -13,7 +13,7 @@ const EmployeeSlice = createSlice({
   initialState: initialState,
   reducers: {
     getEmployees(_state, action: any) {
-      console.log(action.payload);
+      // console.log(action.payload);
 
       return action.payload.data.data.employees;
     },

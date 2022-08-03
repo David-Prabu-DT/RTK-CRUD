@@ -22,12 +22,14 @@
       cursor: default;
     }
     &:hover {
-      background-color: rgba(0, 0, 0, 0.04);
+      background-color: #0d6efd;
+      color: #fff;
       cursor: pointer;
     }
 
     &.selected {
-      background-color: rgba(0, 0, 0, 0.08);
+      background-color: #0d6efd;
+      color: #fff;
     }
 
     .arrow {

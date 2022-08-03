@@ -14,17 +14,18 @@ const EmployeeList = () => {
   const employees: any = useSelector((state: RootState) => state.employees);
   const [loading, setLoading] = useState(true);
 
-  console.log(Object.keys(employees).length);
-
   // Pagination Footer
   let PageSize: number = 8;
 
   const [currentPage, setCurrentPage] = useState(1);
   const firstPageIndex = (currentPage - 1) * PageSize;
   const lastPageIndex = firstPageIndex + PageSize;
+
   const currentTableData =
     Object.keys(employees).length !== 0 &&
     employees.slice(firstPageIndex, lastPageIndex);
+
+  console.log(currentTableData.length);
 
   useEffect(() => {
     EmployeeService.FetchEmployees(dispatch, handleError);
@@ -54,12 +55,12 @@ const EmployeeList = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {employees.map((employee: any, i: number) => (
+                  {currentTableData.map((employee: any, i: number) => (
                     <tr
                       key={i}
                       className="align-middle text-center text-capitalize"
                     >
-                      <td>{i + 1}</td>
+                      <td>{employee.id}</td>
                       <td>{employee.ename}</td>
                       <td>{employee.phone}</td>
                       <td>{employee.designation}</td>
@@ -84,6 +85,7 @@ const EmployeeList = () => {
                 </tbody>
               </Table>
               <Pagination
+                className="bg-light py-2"
                 currentPage={currentPage}
                 totalCount={employees.length}
                 pageSize={PageSize}
